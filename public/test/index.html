@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <script type="text/javascript" src="/test/js/faye-browser.js"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            var client = new Faye.Client('/chat');
+            var subscription = client.subscribe('/teste', function(message) {
+              alert(message.text);
+              console.log(message.text);
+            });
+            client.publish('/teste', {text: 'Hi there'});
+        </script>
+        
+    </body>
+</html>

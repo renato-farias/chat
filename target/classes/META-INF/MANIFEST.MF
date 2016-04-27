@@ -1,0 +1,37 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1411311674741
+Build-Jdk: 1.7.0_67
+Built-By: vagrant
+Bundle-ContactAddress: http://cometd.org/hello-cometd
+Bundle-Description: The CometD project is a scalable web messaging bus t
+ hat uses WebSocketand HTTP AJAX push technology patterns known as "Come
+ t" techniques
+Bundle-DocURL: http://docs.cometd.org
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+Bundle-ManifestVersion: 2
+Bundle-Name: hello-cometd
+Bundle-SymbolicName: hello-cometd
+Bundle-Vendor: Dojo Foundation
+Bundle-Version: 1.0
+Created-By: Apache Maven Bundle Plugin
+Export-Package: org.cometd.hello;uses:="javax.servlet,org.cometd.annotat
+ ion,org.cometd.bayeux.server,org.json.simple";version="1.0",org.cometd.
+ hello.db;uses:="com.mongodb";version="1.0",org.cometd.hello.http;uses:=
+ "javax.servlet,javax.servlet.http";version="1.0",org.cometd.hello.http.
+ headers;uses:="javax.servlet";version="1.0",org.cometd.hello.http.trans
+ ports;uses:="javax.servlet,javax.servlet.http,org.cometd.bayeux.server,
+ org.cometd.server,org.cometd.server.transport";version="1.0",org.cometd
+ .hello.modules;uses:="org.cometd.hello,org.jgroups,redis.clients.jedis"
+ ;version="1.0"
+Import-Package: org.eclipse.jetty.server;version="[7.6,9)",org.eclipse.j
+ etty.server.nio;version="[7.6,9)",org.eclipse.jetty.webapp;version="[7.
+ 6,9)",com.allanbank.mongodb,com.allanbank.mongodb.bson,com.allanbank.mo
+ ngodb.bson.json,com.mongodb;version="[2.12,3)",com.mongodb.util;version
+ ="[2.12,3)",javax.inject,javax.servlet;version="[2.5,3)",javax.servlet.
+ http;version="[2.5,3)",org.apache.commons.pool2.impl;version="[2.0,3)",
+ org.apache.log4j;version="[1.2,2)",org.cometd.annotation;version="[2.9,
+ 3)",org.cometd.bayeux;version="[2.9,3)",org.cometd.bayeux.server;versio
+ n="[2.9,3)",org.cometd.server;version="[2.9,3)",org.cometd.server.trans
+ port;version="[2.9,3)",org.jgroups;version="[3.0,4)",org.json.simple,or
+ g.json.simple.parser,redis.clients.jedis
+Tool: Bnd-2.1.0.20130426-122213

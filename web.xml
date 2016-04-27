@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
+
+    <servlet>
+        <servlet-name>chat</servlet-name>
+        <servlet-class>org.cometd.annotation.AnnotationCometdServlet</servlet-class>
+        <init-param>
+            <param-name>services</param-name>
+            <param-value>org.cometd.hello.MessagingService,org.cometd.hello.Meta</param-value>
+        </init-param>
+        <init-param>
+            <param-name>transports</param-name>
+            <param-value>org.cometd.websocket.server.WebSocketTransport,org.cometd.hello.http.transports.CrossOriginLongPollingTransport</param-value>
+        </init-param>
+        <init-param>
+            <param-name>allowedTransports</param-name>
+            <param-value>cross-origin-long-polling,long-polling,callback-polling,websocket</param-value>
+        </init-param>
+        <init-param>
+            <param-name>interval</param-name>
+            <param-value>1000</param-value>
+        </init-param>
+        <init-param>
+            <param-name>timeout</param-name>
+            <param-value>35000</param-value>
+        </init-param>
+        <init-param>
+            <param-name>multiSessionInterval</param-name>
+            <param-value>35000</param-value>
+        </init-param>
+        <init-param>
+            <param-name>logLevel</param-name>
+            <param-value>1</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>chat</servlet-name>
+        <url-pattern>/chat/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>initializer</servlet-name>
+        <servlet-class>org.cometd.hello.Initializer</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>api</servlet-name>
+        <servlet-class>org.cometd.hello.http.Api</servlet-class>
+        <load-on-startup>3</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>api</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>api-cors</filter-name>
+        <filter-class>org.cometd.hello.http.headers.Api</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>api-cors</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>probe</servlet-name>
+        <servlet-class>org.cometd.hello.http.Probe</servlet-class>
+        <load-on-startup>4</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>probe</servlet-name>
+        <url-pattern>/appstatus</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>cross-origin</filter-name>
+        <filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>
+        <init-param>
+            <param-name>allowedOrigins</param-name>
+            <param-value>*</param-value>
+        </init-param>
+        <init-param>
+            <param-name>allowedMethods</param-name>
+            <param-value>OPTIONS,GET,POST</param-value>
+        </init-param>
+        <init-param>
+            <param-name>allowedHeaders</param-name>
+            <param-value>Origin,Content-Type,Pragma,Accept,X-Requested-With</param-value>
+        </init-param>
+        <init-param>
+            <param-name>exposedHeaders</param-name>
+            <param-value>Content-Length,Cache-Control,Content-Type,Connection</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>cross-origin</filter-name>
+        <url-pattern>/chat/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>continuation</filter-name>
+        <filter-class>org.eclipse.jetty.continuation.ContinuationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>continuation</filter-name>
+        <url-pattern>/chat/*</url-pattern>
+    </filter-mapping>
+</web-app>
